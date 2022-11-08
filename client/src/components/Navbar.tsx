@@ -1,15 +1,16 @@
 import { FaShoppingCart } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import Logo from '../assets/logo.svg';
 
 const Navbar = () => {
   return (
     <div className=' py-2 px-5 flex justify-between items-center bg-black'>
-      <div>
+      <Link to='/'>
         <img src={Logo} className='w-20' alt='logo' />
-      </div>
+      </Link>
       <div>
         <div className='flex items-center gap-5'>
-          <p>Login / Register</p>
+          <Link to='/login'>Login / Register</Link>
           <FaShoppingCart />
         </div>
       </div>
