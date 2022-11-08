@@ -1,14 +1,18 @@
 import EmailIcon from '../assets/email-icon.svg';
 import PasswordIcon from '../assets/password-icon.svg';
 
-const LoginForm = () => {
+const LoginForm: React.FC = () => {
+  const handleSignin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <div className='flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10'>
       <div className='self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white'>
         Login To Your Account
       </div>
       <div className='mt-8'>
-        <form action='#' autoComplete='off'>
+        <form onSubmit={(e) => handleSignin(e)} autoComplete='off'>
           <div className='flex flex-col mb-2'>
             <div className='flex relative '>
               <span className='rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm'>
