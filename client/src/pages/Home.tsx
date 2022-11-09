@@ -1,9 +1,11 @@
+import FeaturedProducts from '../components/FeaturedProducts';
 import HomeHeader from '../components/HomeHeader';
 
 const Home = () => {
   return (
-    <div className='p-5'>
+    <div className='h-screen'>
       <HomeHeader />
+      <FeaturedProducts />
     </div>
   );
 };
