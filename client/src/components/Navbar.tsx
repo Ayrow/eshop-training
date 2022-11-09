@@ -10,6 +10,7 @@ const Navbar = () => {
       </Link>
       <div>
         <div className='flex items-center gap-5'>
+          <Link to='/products'>Products</Link>
           <Link to='/login'>Login / Register</Link>
           <FaShoppingCart />
         </div>
