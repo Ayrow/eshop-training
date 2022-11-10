@@ -7,3 +7,5 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   res.status(200).json({ msg: 'ok' });
 };
+
+export { register, login };
