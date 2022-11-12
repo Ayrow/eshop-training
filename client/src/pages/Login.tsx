@@ -1,10 +1,18 @@
+import { useState } from 'react';
 import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 
-const Login = () => {
+const Login: React.FC = () => {
+  const [isMember, setIsMember] = useState(true);
+
   return (
     <div className='mt-10'>
       <div className='flex justify-center'>
-        <LoginForm />
+        {isMember ? (
+          <LoginForm setIsMember={setIsMember} />
+        ) : (
+          <RegisterForm setIsMember={setIsMember} />
+        )}
       </div>
     </div>
   );

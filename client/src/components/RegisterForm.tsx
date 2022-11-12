@@ -5,14 +5,14 @@ interface Props {
   setIsMember: (isMember: boolean) => void;
 }
 
-const LoginForm: React.FC<Props> = ({ setIsMember }) => {
+const RegisterForm: React.FC<Props> = ({ setIsMember }) => {
   const handleSignin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
   return (
     <div className='flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10'>
       <div className='self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white'>
-        Login To Your Account
+        Register a new account
       </div>
       <div className='mt-8'>
         <form onSubmit={(e) => handleSignin(e)} autoComplete='off'>
@@ -63,12 +63,12 @@ const LoginForm: React.FC<Props> = ({ setIsMember }) => {
           <button
             type='button'
             className='ml-2'
-            onClick={() => setIsMember(false)}>
-            You don&#x27;t have an account?
+            onClick={() => setIsMember(true)}>
+            Already have an account?
           </button>
         </p>
       </div>
     </div>
   );
 };
-export default LoginForm;
+export default RegisterForm;
