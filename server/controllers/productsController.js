@@ -1,11 +1,15 @@
 import Product from '../models/Product.js';
 
-const addProduct = (req, res) => {
+const getAllProducts = (req, res) => {
+  res.status(200).json({ msg: 'get all products' });
+};
+
+const addToCart = (req, res) => {
   res.status(200).json({ msg: 'add product' });
 };
 
-const removeProduct = (req, res) => {
+const removeFromCart = (req, res) => {
   res.status(200).json({ msg: 'remove product' });
 };
 
-export { addProduct, removeProduct };
+export { getAllProducts, addToCart, removeFromCart };

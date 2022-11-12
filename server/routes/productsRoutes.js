@@ -3,10 +3,11 @@ const router = express.Router();
 
 import {
   getAllProducts,
-  addProduct,
-  removeProduct,
+  addToCart,
+  removeFromCart,
 } from '../controllers/productsController.js';
 
 router.route('/').get(getAllProducts);
+router.router('/cart').post(addToCart);
 
 export default router;
