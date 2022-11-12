@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 
-const CartSchema = new mongoose.Schema({});
+const ProductSchema = new mongoose.Schema({
+  name: String,
+  price: Number,
+});
 
-export default mongoose.model('Cart', CartSchema);
+export default mongoose.model('Product', ProductSchema);
