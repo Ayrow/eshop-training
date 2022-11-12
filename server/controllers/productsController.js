@@ -1,4 +1,4 @@
-import Cart from '../models/Cart.js';
+import Product from '../models/Product.js';
 
 const addProduct = (req, res) => {
   res.status(200).json({ msg: 'add product' });

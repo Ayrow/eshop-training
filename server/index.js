@@ -10,7 +10,7 @@ import connectDB from './db/connect.js';
 
 //routers
 import authRouter from './routes/authRoutes.js';
-
+import productsRouter from './routes/productsRoutes.js';
 //middleware
 
 app.use(express.json());
@@ -20,6 +20,7 @@ app.get('/api/v1', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/products', productsRouter);
 
 const port = process.env.PORT || 5000;
 
