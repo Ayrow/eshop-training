@@ -1,14 +1,28 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../features/user/userSlice';
 import EmailIcon from '../assets/email-icon.svg';
 import PasswordIcon from '../assets/password-icon.svg';
+import { useState } from 'react';
 
 interface Props {
   setIsMember: (isMember: boolean) => void;
 }
 
 const RegisterForm: React.FC<Props> = ({ setIsMember }) => {
+  const [values, setValues] = useState({ email: '', password: '' });
+  const dispatch = useDispatch();
+
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { email, password } = values;
   };
+
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const target = e.target as HTMLInputElement;
+    setValues({ ...values, [target.name]: target.value });
+  };
+
   return (
     <div className='flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10'>
       <div className='self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white'>
@@ -25,6 +39,9 @@ const RegisterForm: React.FC<Props> = ({ setIsMember }) => {
                 type='text'
                 className=' rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent'
                 placeholder='Your email'
+                required
+                onChange={(e) => handleChange(e)}
+                value={values.email}
               />
             </div>
           </div>
@@ -37,6 +54,9 @@ const RegisterForm: React.FC<Props> = ({ setIsMember }) => {
                 type='password'
                 className=' rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent'
                 placeholder='Your password'
+                required
+                onChange={handleChange}
+                value={values.password}
               />
             </div>
           </div>
