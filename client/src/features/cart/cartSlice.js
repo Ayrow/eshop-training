@@ -1,12 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
 
-export interface CartState {
-  totalProducts: number;
-  totalPrice: number;
-}
-
-const initialState: CartState = {
+const initialState = {
   totalProducts: 0,
   totalPrice: 0,
 };
