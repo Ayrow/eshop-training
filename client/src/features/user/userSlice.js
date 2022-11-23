@@ -39,9 +39,10 @@ authFetch.interceptors.response.use(
 
 export const registerUser = createAsyncThunk(
   'users/register',
-  async ({ firstName, email, password }, { rejectWithValue }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
-      await authFetch.post('/auth/register', { firstName, email, password });
+      console.log({ email, password });
+      // await authFetch.post('/auth/register', { email, password });
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);

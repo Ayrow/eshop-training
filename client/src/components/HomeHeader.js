@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const HomeHeader: React.FC = () => {
+const HomeHeader = () => {
   return (
     <div className='h-full flex justify-center items-center'>
       <div className='flex flex-col items-center'>
