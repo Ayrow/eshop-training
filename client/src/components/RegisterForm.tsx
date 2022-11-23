@@ -12,15 +12,15 @@ const RegisterForm: React.FC<Props> = ({ setIsMember }) => {
   const [values, setValues] = useState({ email: '', password: '' });
   const dispatch = useDispatch();
 
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { email, password } = values;
-  };
-
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     const target = e.target as HTMLInputElement;
     setValues({ ...values, [target.name]: target.value });
+  };
+
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { email, password } = values;
   };
 
   return (
@@ -40,7 +40,8 @@ const RegisterForm: React.FC<Props> = ({ setIsMember }) => {
                 className=' rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent'
                 placeholder='Your email'
                 required
-                onChange={(e) => handleChange(e)}
+                name='email'
+                onChange={handleChange}
                 value={values.email}
               />
             </div>
@@ -54,6 +55,7 @@ const RegisterForm: React.FC<Props> = ({ setIsMember }) => {
                 type='password'
                 className=' rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent'
                 placeholder='Your password'
+                name='password'
                 required
                 onChange={handleChange}
                 value={values.password}
