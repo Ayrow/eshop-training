@@ -47,7 +47,12 @@ export const registerUser = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       console.log({ email, password });
-      await authFetch.post('/auth/register', { email, password });
+      const { data } = await authFetch.post('/auth/register', {
+        email,
+        password,
+      });
+      const { user, token } = data;
+      addUserToLocalStorage({ user, token });
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
