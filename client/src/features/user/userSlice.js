@@ -1,11 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const user = localStorage.getItem('user');
+const token = localStorage.getItem('token');
+
 const initialState = {
   loading: false,
-  userInfo: {}, // for user object
+  userInfo: user ? JSON.parse(user) : null, // for user object
   userToken: null, // for storing the JWT
   error: null,
+  token: token,
   success: false, // for monitoring the registration process
 };
 
