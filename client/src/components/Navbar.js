@@ -5,7 +5,6 @@ import Logo from '../assets/logo.svg';
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.user);
-  console.log(user);
   return (
     <div className=' py-2 px-5 flex justify-between items-center bg-black'>
       <Link to='/'>
@@ -19,7 +18,6 @@ const Navbar = () => {
           ) : (
             <Link to='/login'>Login / Register</Link>
           )}
-
           <FaShoppingCart />
         </div>
       </div>

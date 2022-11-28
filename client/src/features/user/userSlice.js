@@ -87,6 +87,19 @@ const userSlice = createSlice({
       state.success = true;
       state.error = null;
     },
+    [loginUser.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+    [loginUser.pending]: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    [loginUser.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.success = true;
+      state.error = null;
+    },
     [registerUser.rejected]: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
@@ -94,5 +107,5 @@ const userSlice = createSlice({
   },
 });
 
-export const {} = userSlice.actions;
+// export const {} = userSlice.actions;
 export default userSlice.reducer;
