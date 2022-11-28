@@ -6,7 +6,7 @@ const token = localStorage.getItem('token');
 
 const initialState = {
   loading: false,
-  userInfo: user ? JSON.parse(user) : null, // for user object
+  user: user ? JSON.parse(user) : null, // for user object
   error: null,
   token: token,
   success: false, // for monitoring the registration process
