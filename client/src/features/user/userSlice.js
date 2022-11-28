@@ -7,7 +7,6 @@ const token = localStorage.getItem('token');
 const initialState = {
   loading: false,
   userInfo: user ? JSON.parse(user) : null, // for user object
-  userToken: null, // for storing the JWT
   error: null,
   token: token,
   success: false, // for monitoring the registration process
@@ -50,7 +49,6 @@ export const registerUser = createAsyncThunk(
   'users/register',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      console.log({ email, password });
       const { data } = await authFetch.post('/auth/register', {
         email,
         password,

@@ -3,6 +3,7 @@ import { registerUser } from '../features/user/userSlice';
 import EmailIcon from '../assets/email-icon.svg';
 import PasswordIcon from '../assets/password-icon.svg';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // interface Props {
 //   setIsMember: (isMember: boolean) => void;
@@ -11,6 +12,8 @@ import { useState } from 'react';
 const RegisterForm = ({ setIsMember }) => {
   const [values, setValues] = useState({ email: '', password: '' });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((store) => store.user);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -22,6 +25,8 @@ const RegisterForm = ({ setIsMember }) => {
     e.preventDefault();
     const { email, password } = values;
     dispatch(registerUser({ email, password }));
+    console.log(user);
+    // navigate('/');
   };
 
   return (
