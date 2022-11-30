@@ -1,5 +1,9 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import EmailIcon from '../assets/email-icon.svg';
 import PasswordIcon from '../assets/password-icon.svg';
+import { loginUser } from '../features/user/userSlice';
 
 // interface Props {
 //   setIsMember: (isMember: boolean) => void;
@@ -11,8 +15,14 @@ import PasswordIcon from '../assets/password-icon.svg';
 //   };
 
 const LoginForm = ({ setIsMember }) => {
+  const [values, setValues] = useState({ email: '', password: '' });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleSignin = (e) => {
     e.preventDefault();
+    const { email, password } = values;
+    dispatch(loginUser({ email, password }));
   };
 
   return (
