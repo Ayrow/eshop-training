@@ -69,6 +69,12 @@ export const loginUser = createAsyncThunk(
   'users/loginUser',
   async ({ email, password }, { rejectWithValue }) => {
     try {
+      const { data } = await authFetch.post('/auth/login', {
+        email,
+        password,
+      });
+      const { user, token } = data;
+      addUserToLocalStorage({ user, token });
     } catch (error) {}
   }
 );
