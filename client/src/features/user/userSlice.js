@@ -6,7 +6,7 @@ const token = localStorage.getItem('token');
 
 const initialState = {
   loading: false,
-  user: user ? JSON.parse(user) : null, // for user object
+  user: user ? user : null, // for user object
   error: null,
   token: token,
   success: false, // for monitoring the registration process
@@ -80,23 +80,34 @@ export const loginUser = createAsyncThunk(
       });
       const { user, token } = data;
       addUserToLocalStorage({ user, token });
-    } catch (error) {}
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    clearUser: (state) => {
+      state.user = null;
+    },
+  },
   extraReducers: {
     [registerUser.pending]: (state) => {
       state.loading = true;
       state.error = null;
     },
-    [registerUser.fulfilled]: (state) => {
+    [registerUser.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.success = true;
       state.error = null;
+      state.user = payload.user;
+    },
+    [registerUser.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
     },
     [loginUser.rejected]: (state, { payload }) => {
       state.loading = false;
@@ -106,17 +117,15 @@ const userSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    [loginUser.fulfilled]: (state, { payload }) => {
+    [loginUser.fulfilled]: (state, action) => {
+      console.log('payload', action.payload);
       state.loading = false;
       state.success = true;
       state.error = null;
-    },
-    [registerUser.rejected]: (state, { payload }) => {
-      state.loading = false;
-      state.error = payload;
+      state.user = action.payload;
     },
   },
 });
 
-// export const {} = userSlice.actions;
+export const { clearUser } = userSlice.actions;
 export default userSlice.reducer;

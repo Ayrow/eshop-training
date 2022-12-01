@@ -1,13 +1,18 @@
 import { FaShoppingCart } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../assets/logo.svg';
-import { removeUserFromLocalStorage } from '../features/user/userSlice';
+import {
+  removeUserFromLocalStorage,
+  clearUser,
+} from '../features/user/userSlice';
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutUser = () => {
+    dispatch(clearUser());
     removeUserFromLocalStorage();
     navigate('/');
   };
