@@ -45,6 +45,11 @@ const addUserToLocalStorage = ({ user, token }) => {
   localStorage.setItem('token', token);
 };
 
+export const removeUserFromLocalStorage = () => {
+  localStorage.removeItem('user');
+  localStorage.removeItem('token');
+};
+
 export const registerUser = createAsyncThunk(
   'users/register',
   async ({ email, password }, { rejectWithValue }) => {
