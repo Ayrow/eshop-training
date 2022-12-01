@@ -26,7 +26,7 @@ const RegisterForm = ({ setIsMember }) => {
     const { email, password } = values;
     dispatch(registerUser({ email, password }));
     console.log(user);
-    // navigate('/');
+    navigate('/products');
   };
 
   return (

@@ -29,7 +29,7 @@ const LoginForm = ({ setIsMember }) => {
     e.preventDefault();
     const { email, password } = values;
     dispatch(loginUser({ email, password }));
-    navigate('/');
+    navigate('/products');
   };
 
   return (

@@ -14,7 +14,7 @@ const Navbar = () => {
   const logoutUser = () => {
     dispatch(clearUser());
     removeUserFromLocalStorage();
-    navigate('/');
+    navigate('/login');
   };
 
   return (
