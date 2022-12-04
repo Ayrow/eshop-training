@@ -5,12 +5,6 @@ const initialState = {
   allProducts: [],
 };
 
-export const productSlice = createSlice({
-  name: 'products',
-  initialState,
-  reducers: {},
-});
-
 export const getAllProducts = createAsyncThunk(
   'products/getAllProducts',
   async (name, { rejectWithValue }) => {
@@ -22,6 +16,19 @@ export const getAllProducts = createAsyncThunk(
     }
   }
 );
+
+export const productSlice = createSlice({
+  name: 'products',
+  initialState,
+  reducers: {},
+  extraReducers: {
+    [getAllProducts.pending]: (state) => {},
+    [getAllProducts.fulfilled]: (state, action) => {
+      state.allProducts = action.payload;
+    },
+    [getAllProducts.rejected]: (state) => {},
+  },
+});
 
 export const {} = productSlice.actions;
 export default productSlice.reducer;
