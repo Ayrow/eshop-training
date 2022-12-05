@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import ProductCard from '../components/ProductCard';
 import { getAllProducts } from '../features/products/productSlice';
 
 const Products = () => {
@@ -11,11 +12,12 @@ const Products = () => {
   }, []);
 
   return (
-    <div>
-      {allProducts.map((item) => {
-        const { id, title, category, price, description, image } = item;
-        return <div key={id}>{title}</div>;
-      })}
+    <div className=' my-5 mx-5'>
+      <div className='grid grid-cols-3 gap-5'>
+        {allProducts.map((item) => {
+          return <ProductCard key={item._id} {...item} />;
+        })}
+      </div>
     </div>
   );
 };
