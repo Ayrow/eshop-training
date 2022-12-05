@@ -30,7 +30,9 @@ const Navbar = () => {
           ) : (
             <Link to='/login'>Login / Register</Link>
           )}
-          <FaShoppingCart />
+          <button onClick={() => navigate('/cart')}>
+            <FaShoppingCart />
+          </button>
         </div>
       </div>
     </div>
