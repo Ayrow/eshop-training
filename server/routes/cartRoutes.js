@@ -12,3 +12,5 @@ router
   .get(getProductsFromCart)
   .post(addToCart)
   .delete(removeFromCart);
+
+export default router;
