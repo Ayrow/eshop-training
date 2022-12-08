@@ -20,6 +20,12 @@ const UserSchema = new mongoose.Schema(
       required: [true, 'Please provide password'],
       minlength: 6,
     },
+    cart: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: 'Product',
+      },
+    ],
   },
   { timestamps: true }
 );

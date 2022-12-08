@@ -1,10 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   cartProducts: [],
   totalProducts: 0,
   totalPrice: 0,
 };
+
+export const addProductToCart = createAsyncThunk(
+  '/products/addToCart',
+  async (id, { rejectWithValue }) => {
+    try {
+    } catch (error) {}
+  }
+);
 
 export const cartSlice = createSlice({
   name: 'cart',
