@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   cartProducts: [],
@@ -6,11 +7,25 @@ const initialState = {
   totalPrice: 0,
 };
 
+export const getProductsFromCart = createAsyncThunk(
+  '/products/getProductsFromCart',
+  async (name, { rejectWithValue }) => {
+    try {
+      const resp = await axios.get('/api/v1/cart/');
+      return resp.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const addProductToCart = createAsyncThunk(
   '/products/addToCart',
   async (id, { rejectWithValue }) => {
     try {
-    } catch (error) {}
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
@@ -24,6 +39,14 @@ export const cartSlice = createSlice({
     },
     emptyCart: (state) => {
       state.cartProducts = [];
+    },
+  },
+  extraReducers: {
+    [getProductsFromCart.fulfilled]: (state, action) => {
+      state.cartProducts = action.payload;
+    },
+    [addProductToCart.fulfilled]: (state, action) => {
+      state.cartProducts = [...state.cartProducts, action.payload];
     },
   },
 });
