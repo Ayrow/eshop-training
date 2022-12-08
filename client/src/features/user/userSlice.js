@@ -119,7 +119,6 @@ const userSlice = createSlice({
       state.error = null;
     },
     [loginUser.fulfilled]: (state, action) => {
-      console.log('payload', action.payload);
       state.loading = false;
       state.success = true;
       state.error = null;
