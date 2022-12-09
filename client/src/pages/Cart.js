@@ -11,7 +11,6 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getProductsFromCart('random'));
-    console.log('user', user);
   }, []);
 
   return (
@@ -23,6 +22,9 @@ const Cart = () => {
             <div>
               {cartProducts.length > 0 ? (
                 <div>
+                  {cartProducts.map((item) => {
+                    return <div key={item._id}>{item.title}</div>;
+                  })}
                   <button
                     className='mt-5 p-2 bg-orange-500 hover:bg-orange-400 border rounded-md'
                     onClick={() => dispatch(emptyCart())}>

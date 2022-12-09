@@ -2,16 +2,12 @@ import User from '../models/User.js';
 import Product from '../models/Product.js';
 
 const getProductsFromCart = async (req, res) => {
-  // console.log('req', req.user);
-  // const id = req.user.userId;
+  const id = req.user.userId;
 
-  // const user = await User.findOne({ _id: id });
-  // const userCart = user.cart;
-  // const productsInCart = await Product.find({ _id: userCart });
-
-  // console.log('userCart', { productsInCart, user });
-
-  res.status(200).json({ msg: 'get all products from cart' });
+  const user = await User.findOne({ _id: id });
+  const userCart = user.cart;
+  const productsInCart = await Product.find({ _id: userCart });
+  res.status(200).json(productsInCart);
 };
 
 const addProductToCart = async (req, res) => {

@@ -12,8 +12,8 @@ export const getProductsFromCart = createAsyncThunk(
   '/cart/getProductsFromCart',
   async (name, { rejectWithValue }) => {
     try {
-      const resp = await authFetch.get('/cart');
-      return resp.data;
+      const { data } = await authFetch.get('/cart');
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
