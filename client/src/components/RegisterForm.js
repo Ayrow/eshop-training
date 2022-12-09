@@ -25,7 +25,7 @@ const RegisterForm = ({ setIsMember }) => {
     e.preventDefault();
     const { email, password } = values;
     dispatch(registerUser({ email, password }));
-    console.log(user);
+    console.log('user', user);
     navigate('/products');
   };
 

@@ -18,9 +18,7 @@ const authFetch = axios.create({
 
 authFetch.interceptors.request.use(
   (config) => {
-    config.headers = {
-      Authorization: `Bearer ${initialState.token}`,
-    };
+    config.headers.Authorization = `Bearer ${initialState.token}`;
     return config;
   },
   (error) => {
@@ -60,6 +58,7 @@ export const registerUser = createAsyncThunk(
       });
       const { user, token } = data;
       addUserToLocalStorage({ user, token });
+      return { user, token };
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
@@ -79,8 +78,9 @@ export const loginUser = createAsyncThunk(
         password,
       });
       const { user, token } = data;
+      console.log('token', token);
       addUserToLocalStorage({ user, token });
-      return user;
+      return { user, token };
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -93,6 +93,7 @@ const userSlice = createSlice({
   reducers: {
     clearUser: (state) => {
       state.user = null;
+      state.token = null;
     },
   },
   extraReducers: {
@@ -105,6 +106,7 @@ const userSlice = createSlice({
       state.success = true;
       state.error = null;
       state.user = payload;
+      state.token = payload.token;
     },
     [registerUser.rejected]: (state, { payload }) => {
       state.loading = false;
@@ -119,10 +121,12 @@ const userSlice = createSlice({
       state.error = null;
     },
     [loginUser.fulfilled]: (state, action) => {
+      console.log('action.payload', action.payload);
       state.loading = false;
       state.success = true;
       state.error = null;
-      state.user = action.payload;
+      state.user = action.payload.user;
+      state.token = action.payload.token;
     },
   },
 });
