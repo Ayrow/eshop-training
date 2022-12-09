@@ -22,6 +22,7 @@ export const getProductsFromCart = createAsyncThunk(
 export const addProductToCart = createAsyncThunk(
   '/products/addToCart',
   async (id, { rejectWithValue }) => {
+    await axios.post('/api/v1/cart', id);
     try {
     } catch (error) {
       return rejectWithValue(error.message);
@@ -33,10 +34,10 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, { payload }) => {
-      state.cartProducts = [...state.cartProducts, payload];
-      console.log('state.cartProducts', state.cartProducts);
-    },
+    // addToCart: (state, { payload }) => {
+    //   state.cartProducts = [...state.cartProducts, payload];
+    //   console.log('state.cartProducts', state.cartProducts);
+    // },
     emptyCart: (state) => {
       state.cartProducts = [];
     },
@@ -46,7 +47,9 @@ export const cartSlice = createSlice({
       state.cartProducts = action.payload;
     },
     [addProductToCart.fulfilled]: (state, action) => {
-      state.cartProducts = [...state.cartProducts, action.payload];
+      console.log('action.payload', action.payload);
+      state.cartProducts = [action.payload];
+      console.log('state.cartProducts', state.cartProducts);
     },
   },
 });
