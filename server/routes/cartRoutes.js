@@ -7,10 +7,12 @@ import {
   removeFromCart,
 } from '../controllers/cartController.js';
 
+import authenticateUser from '../middleware/auth.js';
+
 router
   .route('/')
-  .get(getProductsFromCart)
-  .post(addToCart)
+  .get(authenticateUser, getProductsFromCart)
+  .post(authenticateUser, addToCart)
   .delete(removeFromCart);
 
 export default router;
