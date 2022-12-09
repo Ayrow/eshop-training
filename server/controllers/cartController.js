@@ -14,10 +14,11 @@ const getProductsFromCart = async (req, res) => {
   res.status(200).json({ msg: 'get all products from cart' });
 };
 
-const addToCart = async (req, res) => {
+const addProductToCart = async (req, res) => {
   const { id } = req.body;
-  // console.log('req.user.userId', req.user.userId);
   console.log('id', id);
+  // console.log('req.user.userId', req.user.userId);
+  // console.log('id', id);
   // const user = await User.findOne({ _id: req.user.userId });
   // const product = await Product.findOne({ _id: id });
 
@@ -35,4 +36,4 @@ const removeFromCart = (req, res) => {
   res.status(200).json({ msg: 'remove product' });
 };
 
-export { getProductsFromCart, addToCart, removeFromCart };
+export { getProductsFromCart, addProductToCart, removeFromCart };

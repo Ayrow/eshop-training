@@ -11,6 +11,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getProductsFromCart('random'));
+    console.log('user', user);
   }, []);
 
   return (

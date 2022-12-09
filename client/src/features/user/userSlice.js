@@ -12,7 +12,7 @@ const initialState = {
   success: false, // for monitoring the registration process
 };
 
-const authFetch = axios.create({
+export const authFetch = axios.create({
   baseURL: '/api/v1',
 });
 
@@ -78,7 +78,6 @@ export const loginUser = createAsyncThunk(
         password,
       });
       const { user, token } = data;
-      console.log('token', token);
       addUserToLocalStorage({ user, token });
       return { user, token };
     } catch (error) {
@@ -121,7 +120,6 @@ const userSlice = createSlice({
       state.error = null;
     },
     [loginUser.fulfilled]: (state, action) => {
-      console.log('action.payload', action.payload);
       state.loading = false;
       state.success = true;
       state.error = null;

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { authFetch } from '../user/userSlice';
+// import axios from 'axios';
 
 const initialState = {
   cartProducts: [],
@@ -8,10 +9,10 @@ const initialState = {
 };
 
 export const getProductsFromCart = createAsyncThunk(
-  '/products/getProductsFromCart',
+  '/cart/getProductsFromCart',
   async (name, { rejectWithValue }) => {
     try {
-      const resp = await axios.get('/api/v1/cart/');
+      const resp = await authFetch.get('/cart');
       return resp.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -20,9 +21,10 @@ export const getProductsFromCart = createAsyncThunk(
 );
 
 export const addProductToCart = createAsyncThunk(
-  '/products/addToCart',
+  '/cart/addProductToCart',
   async (id, { rejectWithValue }) => {
-    await axios.post('/api/v1/cart', id);
+    const { data } = await authFetch.post('/cart', { id });
+    console.log('data', data);
     try {
     } catch (error) {
       return rejectWithValue(error.message);
@@ -43,9 +45,14 @@ export const cartSlice = createSlice({
     },
   },
   extraReducers: {
+    [getProductsFromCart.pending]: (state) => {},
     [getProductsFromCart.fulfilled]: (state, action) => {
       state.cartProducts = action.payload;
     },
+    [getProductsFromCart.rejected]: (state) => {},
+
+    [addProductToCart.pending]: (state) => {},
+    [addProductToCart.rejected]: (state) => {},
     [addProductToCart.fulfilled]: (state, action) => {
       console.log('action.payload', action.payload);
       state.cartProducts = [action.payload];

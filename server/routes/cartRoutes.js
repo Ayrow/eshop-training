@@ -3,7 +3,7 @@ const router = express.Router();
 
 import {
   getProductsFromCart,
-  addToCart,
+  addProductToCart,
   removeFromCart,
 } from '../controllers/cartController.js';
 
@@ -11,8 +11,8 @@ import authenticateUser from '../middleware/auth.js';
 
 router
   .route('/')
-  .get(authenticateUser, getProductsFromCart)
-  .post(authenticateUser, addToCart)
-  .delete(removeFromCart);
+  .post(authenticateUser, addProductToCart)
+  .delete(authenticateUser, removeFromCart)
+  .get(authenticateUser, getProductsFromCart);
 
 export default router;
