@@ -23,9 +23,10 @@ export const getProductsFromCart = createAsyncThunk(
 export const addProductToCart = createAsyncThunk(
   '/cart/addProductToCart',
   async (id, { rejectWithValue }) => {
-    const { data } = await authFetch.post('/cart', { id });
-    console.log('data', data);
     try {
+      const { data } = await authFetch.post('/cart', { id });
+      const { product } = data;
+      return product;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -35,15 +36,7 @@ export const addProductToCart = createAsyncThunk(
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {
-    // addToCart: (state, { payload }) => {
-    //   state.cartProducts = [...state.cartProducts, payload];
-    //   console.log('state.cartProducts', state.cartProducts);
-    // },
-    emptyCart: (state) => {
-      state.cartProducts = [];
-    },
-  },
+  reducers: {},
   extraReducers: {
     [getProductsFromCart.pending]: (state) => {},
     [getProductsFromCart.fulfilled]: (state, action) => {
@@ -54,9 +47,7 @@ export const cartSlice = createSlice({
     [addProductToCart.pending]: (state) => {},
     [addProductToCart.rejected]: (state) => {},
     [addProductToCart.fulfilled]: (state, action) => {
-      console.log('action.payload', action.payload);
-      state.cartProducts = [action.payload];
-      console.log('state.cartProducts', state.cartProducts);
+      state.cartProducts = [...state.cartProducts, action.payload];
     },
   },
 });
