@@ -21,12 +21,31 @@ const Cart = () => {
           <div>
             <div>
               {cartProducts.length > 0 ? (
-                <div>
+                <div className='my-5 gap-5'>
+                  <div className='font-bold grid grid-cols-4 gap-5 text-center'>
+                    <p>Product</p>
+                    <p>Unit Price</p>
+                    <p>Quantity</p>
+                    <p>Total Price</p>
+                  </div>
                   {cartProducts.map((item) => {
-                    return <div key={item._id}>{item.title}</div>;
+                    return (
+                      <div
+                        key={item._id}
+                        className='mx-5 p-3 border grid grid-cols-4 gap-5 text-center'>
+                        <h4>{item.title}</h4>
+                        <p>{item.price}</p>
+                        <div className='flex gap-5'>
+                          <p>-</p>
+                          <p>1</p>
+                          <p>+</p>
+                        </div>
+                        <p>120€</p>
+                      </div>
+                    );
                   })}
                   <button
-                    className='mt-5 p-2 bg-orange-500 hover:bg-orange-400 border rounded-md'
+                    className='mt-5 p-2 ml-5 bg-orange-500 hover:bg-orange-400 border rounded-md'
                     onClick={() => dispatch(emptyCart())}>
                     Empty cart
                   </button>
