@@ -33,14 +33,23 @@ const Cart = () => {
                       <div
                         key={item._id}
                         className='mx-5 p-3 border grid grid-cols-4 gap-5 text-center'>
-                        <h4>{item.title}</h4>
-                        <p>{item.price}</p>
-                        <div className='flex gap-5 justify-center'>
+                        <h4 className='flex justify-center items-center'>
+                          {item.title}
+                        </h4>
+                        <p className='flex justify-center items-center'>
+                          {item.price} €
+                        </p>
+                        <div className='flex gap-5 justify-center items-center'>
                           <p>-</p>
                           <p>1</p>
                           <p>+</p>
                         </div>
-                        <p>120€</p>
+                        <div className='flex gap-5 justify-center items-center'>
+                          <p>120 €</p>
+                          <button className='bg-red-500 rounded px-3 py-1'>
+                            remove
+                          </button>
+                        </div>
                       </div>
                     );
                   })}

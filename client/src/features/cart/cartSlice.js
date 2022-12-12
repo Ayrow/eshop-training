@@ -36,7 +36,12 @@ export const addProductToCart = createAsyncThunk(
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    removeItem: (state) => {},
+    increase: (state) => {},
+    decrease: (state) => {},
+    calculateTotals: (state) => {},
+  },
   extraReducers: {
     [getProductsFromCart.pending]: (state) => {},
     [getProductsFromCart.fulfilled]: (state, action) => {
