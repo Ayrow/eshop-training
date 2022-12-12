@@ -92,7 +92,7 @@ const userSlice = createSlice({
   reducers: {
     clearUser: (state) => {
       state.user = null;
-      state.token = null;
+      // state.token = null;
     },
   },
   extraReducers: {

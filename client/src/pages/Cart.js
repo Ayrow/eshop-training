@@ -35,7 +35,7 @@ const Cart = () => {
                         className='mx-5 p-3 border grid grid-cols-4 gap-5 text-center'>
                         <h4>{item.title}</h4>
                         <p>{item.price}</p>
-                        <div className='flex gap-5'>
+                        <div className='flex gap-5 justify-center'>
                           <p>-</p>
                           <p>1</p>
                           <p>+</p>
