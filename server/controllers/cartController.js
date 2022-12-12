@@ -6,10 +6,8 @@ const getProductsFromCart = async (req, res) => {
 
   const user = await User.findOne({ _id: id });
   const userCart = user.cart;
-  console.log('userCart', userCart);
-  const productsInCart = await Product.find({ _id: userCart });
 
-  res.status(200).json(productsInCart);
+  res.status(200).json(userCart);
 };
 
 const addProductToCart = async (req, res) => {
@@ -22,9 +20,22 @@ const addProductToCart = async (req, res) => {
     throw new Error('You need an account to add to cart');
   }
 
+  if (!product) {
+    throw new Error('Could not find the product');
+  }
+
   await User.updateOne(
     { _id: req.user.userId },
-    { $addToSet: { cart: { id: product, quantity: 1 } } }
+    {
+      $addToSet: {
+        cart: {
+          id: product._id,
+          title: product.title,
+          price: product.price,
+          quantity: 1,
+        },
+      },
+    }
   );
 
   res.status(200).json({ user, product });

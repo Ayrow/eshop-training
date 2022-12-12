@@ -26,6 +26,12 @@ const UserSchema = new mongoose.Schema(
           type: mongoose.Types.ObjectId,
           ref: 'Product',
         },
+        title: {
+          type: String,
+        },
+        price: {
+          type: Number,
+        },
         quantity: {
           type: Number,
         },

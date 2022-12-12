@@ -4,7 +4,6 @@ import { authFetch } from '../user/userSlice';
 
 const initialState = {
   cartProducts: [],
-  quantity: 0,
   totalProducts: 0,
   totalPrice: 0,
 };
@@ -57,6 +56,7 @@ export const cartSlice = createSlice({
   },
   extraReducers: {
     [getProductsFromCart.fulfilled]: (state, action) => {
+      console.log('action.payload', action.payload);
       state.cartProducts = action.payload;
     },
     [addProductToCart.fulfilled]: (state, action) => {
