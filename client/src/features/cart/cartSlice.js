@@ -39,7 +39,7 @@ export const removeProductFromCart = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await authFetch.delete(`cart/${id}`);
-      return data;
+      // return data;
     } catch (error) {
       console.log('error', error);
     }

@@ -6,7 +6,9 @@ const getProductsFromCart = async (req, res) => {
 
   const user = await User.findOne({ _id: id });
   const userCart = user.cart;
+  console.log('userCart', userCart);
   const productsInCart = await Product.find({ _id: userCart });
+
   res.status(200).json(productsInCart);
 };
 
@@ -22,7 +24,7 @@ const addProductToCart = async (req, res) => {
 
   await User.updateOne(
     { _id: req.user.userId },
-    { $addToSet: { cart: product } }
+    { $addToSet: { cart: { id: product, quantity: 1 } } }
   );
 
   res.status(200).json({ user, product });
@@ -31,12 +33,18 @@ const addProductToCart = async (req, res) => {
 const removeProductFromCart = async (req, res) => {
   const { id: productId } = req.params;
   const product = await Product.findOne({ _id: productId });
+  const user = await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $unset: productId }
+  );
+  console.log('product', product);
 
   if (!product) {
     throw Error('No product found to delete');
   }
   await product.remove();
-  res.status(200).json(productId);
+  res.status(200).json({ msg: 'delete product' });
+  // res.status(200).json(productId);
 };
 
 export { getProductsFromCart, addProductToCart, removeProductFromCart };

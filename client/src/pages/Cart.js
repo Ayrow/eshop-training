@@ -14,8 +14,9 @@ const Cart = () => {
   const { cartProducts } = useSelector((store) => store.cart);
 
   useEffect(() => {
-    dispatch(getProductsFromCart('random'));
-  }, [cartProducts]);
+    dispatch(getProductsFromCart('product'));
+    console.log('cartProducts', cartProducts);
+  }, []);
 
   return (
     <div className='mt-5'>
