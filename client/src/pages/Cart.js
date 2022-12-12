@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { emptyCart, getProductsFromCart } from '../features/cart/cartSlice';
+import {
+  emptyCart,
+  getProductsFromCart,
+  removeProductFromCart,
+} from '../features/cart/cartSlice';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -11,7 +15,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getProductsFromCart('random'));
-  }, []);
+  }, [cartProducts]);
 
   return (
     <div className='mt-5'>
@@ -46,7 +50,11 @@ const Cart = () => {
                         </div>
                         <div className='flex gap-5 justify-center items-center'>
                           <p>120 €</p>
-                          <button className='bg-red-500 rounded px-3 py-1'>
+                          <button
+                            className='bg-red-500 rounded px-3 py-1'
+                            onClick={() =>
+                              dispatch(removeProductFromCart(item._id))
+                            }>
                             remove
                           </button>
                         </div>

@@ -28,8 +28,15 @@ const addProductToCart = async (req, res) => {
   res.status(200).json({ user, product });
 };
 
-const removeFromCart = (req, res) => {
-  res.status(200).json({ msg: 'remove product' });
+const removeProductFromCart = async (req, res) => {
+  const { id: productId } = req.params;
+  const product = await Product.findOne({ _id: productId });
+
+  if (!product) {
+    throw Error('No product found to delete');
+  }
+  await product.remove();
+  res.status(200).json(productId);
 };
 
-export { getProductsFromCart, addProductToCart, removeFromCart };
+export { getProductsFromCart, addProductToCart, removeProductFromCart };
