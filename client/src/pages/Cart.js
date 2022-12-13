@@ -70,7 +70,9 @@ const Cart = () => {
               ) : (
                 <div>
                   <h4>Your cart is empty</h4>
-                  <button className='mt-5 p-2 bg-orange-500 hover:bg-orange-400 border rounded-md'>
+                  <button
+                    className='mt-5 p-2 bg-orange-500 hover:bg-orange-400 border rounded-md'
+                    onClick={() => navigate('/products')}>
                     Go shopping
                   </button>
                 </div>
