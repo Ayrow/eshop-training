@@ -35,10 +35,10 @@ export const addProductToCart = createAsyncThunk(
 
 export const removeProductFromCart = createAsyncThunk(
   '/cart/removeProductFromCart',
-  async (id, { rejectWithValue }) => {
+  async (item, { rejectWithValue }) => {
     try {
-      const { data } = await authFetch.delete(`cart/${id}`);
-      // return data;
+      const { data } = await authFetch.delete(`cart/${item}`);
+      return data;
     } catch (error) {
       console.log('error', error);
     }
@@ -56,7 +56,6 @@ export const cartSlice = createSlice({
   },
   extraReducers: {
     [getProductsFromCart.fulfilled]: (state, action) => {
-      console.log('action.payload', action.payload);
       state.cartProducts = action.payload;
     },
     [addProductToCart.fulfilled]: (state, action) => {
@@ -64,9 +63,9 @@ export const cartSlice = createSlice({
     },
     [removeProductFromCart.fulfilled]: (state, action) => {
       const itemID = action.payload;
-      state.cartProducts = state.cartProducts.filter(
-        (item) => item.id !== itemID
-      );
+      // state.cartProducts = state.cartProducts.filter(
+      //   (item) => item.id !== itemID
+      // );
     },
   },
 });

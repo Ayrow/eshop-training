@@ -15,8 +15,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getProductsFromCart('product'));
-    console.log('cartProducts', cartProducts);
-  }, []);
+  }, [cartProducts]);
 
   return (
     <div className='mt-5'>
@@ -46,7 +45,7 @@ const Cart = () => {
                         </p>
                         <div className='flex gap-5 justify-center items-center'>
                           <p>-</p>
-                          <p>1</p>
+                          <p>{item.quantity}</p>
                           <p>+</p>
                         </div>
                         <div className='flex gap-5 justify-center items-center'>
@@ -54,7 +53,7 @@ const Cart = () => {
                           <button
                             className='bg-red-500 rounded px-3 py-1'
                             onClick={() =>
-                              dispatch(removeProductFromCart(item._id))
+                              dispatch(removeProductFromCart(item.id))
                             }>
                             remove
                           </button>

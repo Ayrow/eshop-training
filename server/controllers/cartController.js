@@ -43,17 +43,25 @@ const addProductToCart = async (req, res) => {
 
 const removeProductFromCart = async (req, res) => {
   const { id: productId } = req.params;
-  const product = await Product.findOne({ _id: productId });
-  const user = await User.findOneAndUpdate(
-    { _id: req.user._id },
-    { $unset: productId }
-  );
-  console.log('product', product);
 
-  if (!product) {
-    throw Error('No product found to delete');
-  }
-  await product.remove();
+  console.log('productId', productId);
+
+  // const product = await User.findOne(
+  //   { _id: req.user.userId },
+  //   {
+  //     cart: {
+  //       _id: productId,
+  //     },
+  //   }
+  // );
+
+  await User.updateOne(
+    { _id: req.user.userId },
+    {
+      $pull: { cart: { id: productId } },
+    }
+  );
+
   res.status(200).json({ msg: 'delete product' });
   // res.status(200).json(productId);
 };
