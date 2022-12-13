@@ -24,19 +24,42 @@ const addProductToCart = async (req, res) => {
     throw new Error('Could not find the product');
   }
 
-  await User.updateOne(
+  const productExists = await User.findOne(
     { _id: req.user.userId },
-    {
-      $addToSet: {
-        cart: {
-          id: product._id,
-          title: product.title,
-          price: product.price,
-          quantity: 1,
-        },
-      },
-    }
+    { cart: { $elemMatch: { id: product._id } } }
   );
+
+  if (productExists.cart.length > 0) {
+    const productQuantity = productExists.cart[0].quantity;
+
+    await User.updateOne(
+      { _id: req.user.userId },
+      {
+        $set: {
+          cart: {
+            id: product._id,
+            title: product.title,
+            price: product.price,
+            quantity: productQuantity + 1,
+          },
+        },
+      }
+    );
+  } else {
+    await User.updateOne(
+      { _id: req.user.userId },
+      {
+        $addToSet: {
+          cart: {
+            id: product._id,
+            title: product.title,
+            price: product.price,
+            quantity: 1,
+          },
+        },
+      }
+    );
+  }
 
   res.status(200).json({ user, product });
 };
