@@ -44,17 +44,6 @@ const addProductToCart = async (req, res) => {
 const removeProductFromCart = async (req, res) => {
   const { id: productId } = req.params;
 
-  console.log('productId', productId);
-
-  // const product = await User.findOne(
-  //   { _id: req.user.userId },
-  //   {
-  //     cart: {
-  //       _id: productId,
-  //     },
-  //   }
-  // );
-
   await User.updateOne(
     { _id: req.user.userId },
     {
@@ -62,8 +51,18 @@ const removeProductFromCart = async (req, res) => {
     }
   );
 
-  res.status(200).json({ msg: 'delete product' });
-  // res.status(200).json(productId);
+  res.status(200).json(productId);
 };
 
-export { getProductsFromCart, addProductToCart, removeProductFromCart };
+const emptyCart = async (req, res) => {
+  await User.updateOne({ _id: req.user.userId }, { cart: [] });
+
+  res.status(200).json({ msg: 'empty cart' });
+};
+
+export {
+  getProductsFromCart,
+  addProductToCart,
+  removeProductFromCart,
+  emptyCart,
+};

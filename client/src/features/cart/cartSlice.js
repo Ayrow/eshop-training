@@ -35,10 +35,21 @@ export const addProductToCart = createAsyncThunk(
 
 export const removeProductFromCart = createAsyncThunk(
   '/cart/removeProductFromCart',
-  async (item, { rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
     try {
-      const { data } = await authFetch.delete(`cart/${item}`);
+      const { data } = await authFetch.delete(`/cart/${id}`);
       return data;
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
+);
+
+export const emptyCart = createAsyncThunk(
+  '/cart/emptyCart',
+  async (name, { rejectWithValue }) => {
+    try {
+      await authFetch.delete('/cart');
     } catch (error) {
       console.log('error', error);
     }
@@ -49,7 +60,6 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    removeItem: (state, { payload }) => {},
     increase: (state) => {},
     decrease: (state) => {},
     calculateTotals: (state) => {},
@@ -63,12 +73,15 @@ export const cartSlice = createSlice({
     },
     [removeProductFromCart.fulfilled]: (state, action) => {
       const itemID = action.payload;
-      // state.cartProducts = state.cartProducts.filter(
-      //   (item) => item.id !== itemID
-      // );
+      state.cartProducts = state.cartProducts.filter(
+        (item) => item.id !== itemID
+      );
+    },
+    [emptyCart.fulfilled]: (state) => {
+      state.cartProducts = [];
     },
   },
 });
 
-export const { addToCart, emptyCart, removeItem } = cartSlice.actions;
+// export const {  } = cartSlice.actions;
 export default cartSlice.reducer;
