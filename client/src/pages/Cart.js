@@ -26,7 +26,7 @@ const Cart = () => {
             <div>
               {cartProducts.length > 0 ? (
                 <div className='my-5 gap-5'>
-                  <div className='font-bold grid grid-cols-4 gap-5 text-center'>
+                  <div className='font-bold grid grid-cols-5 gap-5 text-center'>
                     <p>Product</p>
                     <p>Unit Price</p>
                     <p>Quantity</p>
@@ -36,7 +36,7 @@ const Cart = () => {
                     return (
                       <div
                         key={item._id}
-                        className='mx-5 p-3 border grid grid-cols-4 gap-5 text-center'>
+                        className='mx-5 p-3 border grid grid-cols-5 gap-5 text-center'>
                         <h4 className='flex justify-center items-center'>
                           {item.title}
                         </h4>
@@ -44,20 +44,25 @@ const Cart = () => {
                           {item.price} €
                         </p>
                         <div className='flex gap-5 justify-center items-center'>
-                          <p>-</p>
+                          <button className='text-2xl bg-black px-2 rounded'>
+                            -
+                          </button>
                           <p>{item.quantity}</p>
-                          <p>+</p>
-                        </div>
-                        <div className='flex gap-5 justify-center items-center'>
-                          <p>120 €</p>
-                          <button
-                            className='bg-red-500 rounded px-3 py-1'
-                            onClick={() =>
-                              dispatch(removeProductFromCart(item.id))
-                            }>
-                            remove
+                          <button className='text-2xl bg-black px-2 rounded'>
+                            +
                           </button>
                         </div>
+                        <p className='flex justify-center items-center'>
+                          120 €
+                        </p>
+
+                        <button
+                          className='bg-red-500 rounded px-3 py-1'
+                          onClick={() =>
+                            dispatch(removeProductFromCart(item.id))
+                          }>
+                          remove
+                        </button>
                       </div>
                     );
                   })}
