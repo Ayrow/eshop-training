@@ -5,6 +5,7 @@ import {
   emptyCart,
   getProductsFromCart,
   removeProductFromCart,
+  addProductToCart,
 } from '../features/cart/cartSlice';
 
 const Cart = () => {

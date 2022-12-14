@@ -34,17 +34,29 @@ const addProductToCart = async (req, res) => {
 
     await User.updateOne(
       { _id: req.user.userId },
+      { $set: { 'cart.$[cart].quantity': productQuantity + 1 } },
       {
-        $set: {
-          cart: {
-            id: product._id,
-            title: product.title,
-            price: product.price,
-            quantity: productQuantity + 1,
+        arrayFilters: [
+          {
+            'cart.id': id,
           },
-        },
+        ],
       }
     );
+
+    // await User.updateOne(
+    //   { _id: req.user.userId },
+    //   {
+    //     $set: {
+    //       cart: {
+    //         quantity: productQuantity + 1,
+    //       },
+    //     },
+    //   },
+    //   {arrayFilters: [
+
+    //   ]}
+    // );
   } else {
     await User.updateOne(
       { _id: req.user.userId },
