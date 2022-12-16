@@ -96,6 +96,8 @@ const emptyCart = async (req, res) => {
 };
 
 const updateQuantityProduct = async (req, res) => {
+  const { id: productId } = req.params;
+  console.log('productId', productId);
   res.status(200).json({ msg: 'update quantity' });
 };
 

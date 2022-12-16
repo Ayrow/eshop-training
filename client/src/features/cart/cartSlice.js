@@ -56,6 +56,18 @@ export const emptyCart = createAsyncThunk(
   }
 );
 
+export const updateQuantityProduct = createAsyncThunk(
+  '/cart/updateQuantityProduct',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await authFetch.post(`/cart/${id}`);
+      console.log('data', data);
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
+);
+
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -78,6 +90,7 @@ export const cartSlice = createSlice({
         (item) => item.id !== itemID
       );
     },
+    [updateQuantityProduct.fulfilled]: (state, action) => {},
     [emptyCart.fulfilled]: (state) => {
       state.cartProducts = [];
     },

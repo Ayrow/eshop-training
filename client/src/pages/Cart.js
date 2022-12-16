@@ -5,7 +5,7 @@ import {
   emptyCart,
   getProductsFromCart,
   removeProductFromCart,
-  addProductToCart,
+  updateQuantityProduct,
 } from '../features/cart/cartSlice';
 
 const Cart = () => {
@@ -45,13 +45,19 @@ const Cart = () => {
                           {item.price} €
                         </p>
                         <div className='flex gap-5 justify-center items-center'>
-                          <button className='text-2xl bg-black px-2 rounded'>
+                          <button
+                            className='text-2xl bg-black px-2 rounded'
+                            onClick={() =>
+                              dispatch(updateQuantityProduct(item.id))
+                            }>
                             -
                           </button>
                           <p>{item.quantity}</p>
                           <button
                             className='text-2xl bg-black px-2 rounded'
-                            onClick={() => dispatch(addProductToCart(item.id))}>
+                            onClick={() =>
+                              dispatch(updateQuantityProduct(item.id))
+                            }>
                             +
                           </button>
                         </div>
