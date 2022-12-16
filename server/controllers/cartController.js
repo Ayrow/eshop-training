@@ -85,18 +85,29 @@ const updateQuantityProduct = async (req, res) => {
   const { id: productId } = req.params;
   const { type } = req.body;
 
-  const multipleProducts = await User.findOne(
+  const productToUpdate = await User.findOne(
     { _id: req.user.userId },
-    {
-      cart: { $elemMatch: { id: productId, quantity: { $gt: 1 } } },
-    }
+    { cart: { $elemMatch: { id: productId } } }
   );
 
-  if (multipleProducts && type === 'subtract') {
-    const productQuantity = multipleProducts.cart[0].quantity;
+  const productQuantity = productToUpdate.cart[0].quantity;
+
+  if (productQuantity > 1 && type === 'subtract') {
     await User.updateOne(
       { _id: req.user.userId },
       { $set: { 'cart.$[cart].quantity': productQuantity - 1 } },
+      {
+        arrayFilters: [
+          {
+            'cart.id': productId,
+          },
+        ],
+      }
+    );
+  } else if (type === 'add') {
+    await User.updateOne(
+      { _id: req.user.userId },
+      { $set: { 'cart.$[cart].quantity': productQuantity + 1 } },
       {
         arrayFilters: [
           {
