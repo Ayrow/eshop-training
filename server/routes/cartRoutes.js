@@ -19,7 +19,7 @@ router
 
 router
   .route('/:id')
-  .post(authenticateUser, updateQuantityProduct)
+  .patch(authenticateUser, updateQuantityProduct)
   .delete(authenticateUser, removeProductFromCart);
 
 export default router;

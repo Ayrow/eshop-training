@@ -43,20 +43,6 @@ const addProductToCart = async (req, res) => {
         ],
       }
     );
-
-    // await User.updateOne(
-    //   { _id: req.user.userId },
-    //   {
-    //     $set: {
-    //       cart: {
-    //         quantity: productQuantity + 1,
-    //       },
-    //     },
-    //   },
-    //   {arrayFilters: [
-
-    //   ]}
-    // );
   } else {
     await User.updateOne(
       { _id: req.user.userId },
@@ -97,7 +83,37 @@ const emptyCart = async (req, res) => {
 
 const updateQuantityProduct = async (req, res) => {
   const { id: productId } = req.params;
-  console.log('productId', productId);
+  const { type } = req.body;
+
+  const multipleProducts = await User.findOne(
+    { _id: req.user.userId },
+    {
+      cart: { $elemMatch: { id: productId, quantity: { $gt: 1 } } },
+    }
+  );
+
+  if (multipleProducts && type === 'subtract') {
+    const productQuantity = multipleProducts.cart[0].quantity;
+    await User.updateOne(
+      { _id: req.user.userId },
+      { $set: { 'cart.$[cart].quantity': productQuantity - 1 } },
+      {
+        arrayFilters: [
+          {
+            'cart.id': productId,
+          },
+        ],
+      }
+    );
+  } else {
+    await User.updateOne(
+      { _id: req.user.userId },
+      {
+        $pull: { cart: { id: productId } },
+      }
+    );
+  }
+
   res.status(200).json({ msg: 'update quantity' });
 };
 

@@ -48,7 +48,12 @@ const Cart = () => {
                           <button
                             className='text-2xl bg-black px-2 rounded'
                             onClick={() =>
-                              dispatch(updateQuantityProduct(item.id))
+                              dispatch(
+                                updateQuantityProduct({
+                                  id: item.id,
+                                  type: 'subtract',
+                                })
+                              )
                             }>
                             -
                           </button>
@@ -56,7 +61,12 @@ const Cart = () => {
                           <button
                             className='text-2xl bg-black px-2 rounded'
                             onClick={() =>
-                              dispatch(updateQuantityProduct(item.id))
+                              dispatch(
+                                updateQuantityProduct({
+                                  id: item.id,
+                                  type: 'add',
+                                })
+                              )
                             }>
                             +
                           </button>
