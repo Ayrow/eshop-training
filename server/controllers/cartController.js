@@ -125,7 +125,9 @@ const updateQuantityProduct = async (req, res) => {
     );
   }
 
-  res.status(200).json({ msg: 'update quantity' });
+  const user = await User.findOne({ _id: req.user.userId });
+
+  res.status(200).json(user.cart);
 };
 
 export {
