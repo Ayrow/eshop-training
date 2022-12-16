@@ -49,7 +49,9 @@ const Cart = () => {
                             -
                           </button>
                           <p>{item.quantity}</p>
-                          <button className='text-2xl bg-black px-2 rounded'>
+                          <button
+                            className='text-2xl bg-black px-2 rounded'
+                            onClick={() => dispatch(addProductToCart(item.id))}>
                             +
                           </button>
                         </div>

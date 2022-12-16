@@ -95,9 +95,14 @@ const emptyCart = async (req, res) => {
   res.status(200).json({ msg: 'empty cart' });
 };
 
+const updateQuantityProduct = async (req, res) => {
+  res.status(200).json({ msg: 'update quantity' });
+};
+
 export {
   getProductsFromCart,
   addProductToCart,
   removeProductFromCart,
   emptyCart,
+  updateQuantityProduct,
 };

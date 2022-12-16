@@ -70,6 +70,7 @@ export const cartSlice = createSlice({
     },
     [addProductToCart.fulfilled]: (state, action) => {
       state.cartProducts = [...state.cartProducts, action.payload];
+      console.log('state.cartProducts', state.cartProducts);
     },
     [removeProductFromCart.fulfilled]: (state, action) => {
       const itemID = action.payload;

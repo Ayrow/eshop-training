@@ -6,6 +6,7 @@ import {
   addProductToCart,
   removeProductFromCart,
   emptyCart,
+  updateQuantityProduct,
 } from '../controllers/cartController.js';
 
 import authenticateUser from '../middleware/auth.js';
@@ -16,6 +17,9 @@ router
   .get(authenticateUser, getProductsFromCart)
   .delete(authenticateUser, emptyCart);
 
-router.route('/:id').delete(authenticateUser, removeProductFromCart);
+router
+  .route('/:id')
+  .post(authenticateUser, updateQuantityProduct)
+  .delete(authenticateUser, removeProductFromCart);
 
 export default router;
