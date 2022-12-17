@@ -78,7 +78,17 @@ export const cartSlice = createSlice({
   },
   extraReducers: {
     [getProductsFromCart.fulfilled]: (state, action) => {
-      state.cartProducts = action.payload;
+      console.log('action.payload', action.payload);
+      let totalQuantity = 0;
+      let totalPrice = 0;
+      const cart = action.payload;
+      cart.forEach((item) => {
+        totalQuantity += item.quantity;
+        totalPrice += item.price * item.quantity;
+      });
+      state.cartProducts = cart;
+      state.totalProducts = totalQuantity;
+      state.totalPrice = totalPrice;
     },
     [addProductToCart.fulfilled]: (state, action) => {
       state.cartProducts = [...state.cartProducts, action.payload];

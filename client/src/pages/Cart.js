@@ -12,11 +12,13 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.user);
-  const { cartProducts } = useSelector((store) => store.cart);
+  const { cartProducts, totalPrice, totalProducts } = useSelector(
+    (store) => store.cart
+  );
 
   useEffect(() => {
     dispatch(getProductsFromCart('product'));
-  }, [cartProducts]);
+  }, []);
 
   return (
     <div className='mt-5'>
@@ -72,7 +74,7 @@ const Cart = () => {
                           </button>
                         </div>
                         <p className='flex justify-center items-center'>
-                          120 €
+                          {item.quantity * item.price} €
                         </p>
 
                         <button
@@ -85,11 +87,18 @@ const Cart = () => {
                       </div>
                     );
                   })}
-                  <button
-                    className='mt-5 p-2 ml-5 bg-orange-500 hover:bg-orange-400 border rounded-md'
-                    onClick={() => dispatch(emptyCart())}>
-                    Empty cart
-                  </button>
+                  <div className='font-bold grid grid-cols-5 gap-5 text-center mt-2'>
+                    <p>Total</p>
+                    <p></p>
+                    <p>total Products: {totalProducts}</p>
+                    <p>total Price : {totalPrice} €</p>
+
+                    <button
+                      className='text-orange-300 hover:text-orange-200'
+                      onClick={() => dispatch(emptyCart())}>
+                      Empty cart
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <div>
