@@ -18,7 +18,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getProductsFromCart('product'));
-  }, []);
+  }, [totalPrice, totalProducts]);
 
   return (
     <div className='mt-5'>

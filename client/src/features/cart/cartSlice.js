@@ -71,11 +71,6 @@ export const updateQuantityProduct = createAsyncThunk(
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {
-    increase: (state) => {},
-    decrease: (state) => {},
-    calculateTotals: (state) => {},
-  },
   extraReducers: {
     [getProductsFromCart.fulfilled]: (state, action) => {
       console.log('action.payload', action.payload);
@@ -95,6 +90,10 @@ export const cartSlice = createSlice({
     },
     [removeProductFromCart.fulfilled]: (state, action) => {
       const itemID = action.payload;
+      const product = state.cartProducts.find((item) => item.id === itemID);
+      state.totalProducts = state.totalProducts - product.quantity;
+      state.totalPrice = state.totalPrice - product.price * product.quantity;
+
       state.cartProducts = state.cartProducts.filter(
         (item) => item.id !== itemID
       );
@@ -104,6 +103,8 @@ export const cartSlice = createSlice({
     },
     [emptyCart.fulfilled]: (state) => {
       state.cartProducts = [];
+      state.totalProducts = 0;
+      state.totalPrice = 0;
     },
   },
 });
