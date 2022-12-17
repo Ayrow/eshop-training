@@ -61,7 +61,7 @@ export const updateQuantityProduct = createAsyncThunk(
   async ({ id, type }, { rejectWithValue }) => {
     try {
       const { data } = await authFetch.patch(`/cart/${id}`, { type });
-      return data;
+      return { data, type, id };
     } catch (error) {
       console.log('error', error);
     }
@@ -73,7 +73,6 @@ export const cartSlice = createSlice({
   initialState,
   extraReducers: {
     [getProductsFromCart.fulfilled]: (state, action) => {
-      console.log('action.payload', action.payload);
       let totalQuantity = 0;
       let totalPrice = 0;
       const cart = action.payload;
@@ -99,7 +98,17 @@ export const cartSlice = createSlice({
       );
     },
     [updateQuantityProduct.fulfilled]: (state, action) => {
-      state.cartProducts = action.payload;
+      state.cartProducts = action.payload.data;
+      const productToUpdate = state.cartProducts.find(
+        (item) => item.id === action.payload.id
+      );
+      if (action.payload.type === 'add') {
+        state.totalProducts = state.totalProducts + 1;
+        state.totalPrice = state.totalPrice + productToUpdate.price;
+      } else {
+        state.totalProducts = state.totalProducts - 1;
+        state.totalPrice = state.totalPrice - productToUpdate.price;
+      }
     },
     [emptyCart.fulfilled]: (state) => {
       state.cartProducts = [];
