@@ -2,7 +2,7 @@
 
 Quick shopping app with Navbar and login / register using MERN and redux TK
 
-ExpressJs with node for backend Mongodb for db, ReactJs for frontend, tailwindcss for styling, Testing with react-testing-library (jest)
+ExpressJs with node for backend Mongodb for db, ReactJs for frontend, tailwindcss for styling
 
 Navbar:
 
